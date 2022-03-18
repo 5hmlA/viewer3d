@@ -11,8 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  winloading: 0.0.2
-  cached_network_image: 3.2.0
+  winloading: ^0.0.2
+  cached_network_image: ^3.2.0
 
 dev_dependencies:
   flutter_test:
