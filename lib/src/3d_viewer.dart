@@ -10,8 +10,10 @@ import 'animation_reset.dart';
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  */
-const String avatar =
-    "https://avatars.githubusercontent.com/u/9412501?s=400&u=87dd2fd8ba87dba6a3f7f46a7043e6e2975b79a6&v=4";
+const String avatar = "https://gitee.com/jonasj/yun/raw/master/9412501.png";
+final String qrcode = Random().nextBool()
+    ? "https://gitee.com/jonasj/yun/raw/master/bdd_qrcode.png"
+    : "https://gitee.com/jonasj/yun/raw/master/kognfu_qrcode.gif";
 
 class View3D extends StatefulWidget {
   final double width;
@@ -62,29 +64,39 @@ class View3D extends StatefulWidget {
                 )),
             ColoredBox(
                 color: Colors.primaries[1],
-                child: CachedNetworkImage(imageUrl: avatar)),
+                child: CachedNetworkImage(imageUrl: qrcode)),
             ColoredBox(
               color: Colors.primaries[2],
               child: Center(
-                child: SizedBox(width: 10, child: Text("我叫江祖赟")),
+                child: SizedBox(
+                    width: 10,
+                    child: Text(
+                      "WORK@OPPO",
+                      textAlign: TextAlign.center,
+                    )),
               ),
             ),
             ColoredBox(
               color: Colors.primaries[3],
               child: Center(
-                child: SizedBox(width: 10, child: Text("我叫江祖赟")),
+                child: SizedBox(
+                    width: 10,
+                    child: Text(
+                      "I ㅤ❤ S ㅤZ",
+                      textAlign: TextAlign.center,
+                    )),
               ),
             ),
             ColoredBox(
               color: Colors.primaries[4],
               child: Center(
-                child: Text("我叫江祖赟"),
+                child: Text("ANDROID DEVELOPER "),
               ),
             ),
             ColoredBox(
               color: Colors.primaries[5],
               child: Center(
-                child: Text("我叫江祖赟"),
+                child: Text("I HOPE YOU WILL LIKE IT"),
               ),
             ),
           ],
@@ -156,9 +168,7 @@ class _View3DState extends State<View3D> with SingleTickerProviderStateMixin {
       child: AnimatedBuilder(
           animation: _animationControl,
           builder: (context, child) {
-            var t = curve(_animationControl.value);
-            print('$t');
-            tOffset = tween.transform(t);
+            tOffset = tween.transform(curve(_animationControl.value));
             return Transform(
               alignment: Alignment.center,
               transform: Matrix4.identity()
@@ -175,6 +185,7 @@ class _View3DState extends State<View3D> with SingleTickerProviderStateMixin {
     child = Listener(
       onPointerMove: (event) {
         if (_animationControl.isAnimating) {
+          print(' >>>>>>>>>>>> ops!! animation running <<<<<<<<<<<<<');
           return;
         }
         var delta = event.delta;
@@ -195,7 +206,6 @@ class _View3DState extends State<View3D> with SingleTickerProviderStateMixin {
             _animationControl.value = (tOffset %= 1).dy;
           }
         }
-        print('${_animationControl.value}');
       },
       onPointerCancel: (event) {
         _restore();
