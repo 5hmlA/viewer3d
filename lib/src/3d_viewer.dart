@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:winloading/winloading.dart';
 
 import '3d_geometry.dart';
 import 'animation_reset.dart';
@@ -51,26 +52,37 @@ class View3D extends StatefulWidget {
             reset: const ResetElasticOut(),
             resetTarget: const ResetTarget2());
 
-  View3D.me()
-      : this(
-          260,
-          260,
-          60,
+  View3D.me({
+    double width = 260,
+    double height = 260,
+    double thickness = 60,
+  }) : this(
+          width,
+          height,
+          thickness,
           sides: [
             ColoredBox(
                 color: Colors.primaries[0],
                 child: CachedNetworkImage(
                   imageUrl: avatar,
+                  progressIndicatorBuilder: (c, u, p) => const Center(
+                    child: const WinLoading(),
+                  ),
                 )),
             ColoredBox(
                 color: Colors.primaries[1],
-                child: CachedNetworkImage(imageUrl: qrcode)),
+                child: CachedNetworkImage(
+                  imageUrl: qrcode,
+                  progressIndicatorBuilder: (c, u, p) => const Center(
+                    child: const WinLoading(),
+                  ),
+                )),
             ColoredBox(
               color: Colors.primaries[2],
-              child: Center(
+              child: const Center(
                 child: SizedBox(
-                    width: 10,
-                    child: Text(
+                    width: 6,
+                    child: const Text(
                       "WORK@OPPO",
                       textAlign: TextAlign.center,
                     )),
@@ -78,9 +90,9 @@ class View3D extends StatefulWidget {
             ),
             ColoredBox(
               color: Colors.primaries[3],
-              child: Center(
+              child: const Center(
                 child: SizedBox(
-                    width: 10,
+                    width: 6,
                     child: Text(
                       "I ㅤ❤ S ㅤZ",
                       textAlign: TextAlign.center,
@@ -89,13 +101,13 @@ class View3D extends StatefulWidget {
             ),
             ColoredBox(
               color: Colors.primaries[4],
-              child: Center(
+              child: const Center(
                 child: Text("ANDROID DEVELOPER "),
               ),
             ),
             ColoredBox(
               color: Colors.primaries[5],
-              child: Center(
+              child: const Center(
                 child: Text("I HOPE YOU WILL LIKE IT"),
               ),
             ),
@@ -228,11 +240,12 @@ class _View3DState extends State<View3D> with SingleTickerProviderStateMixin {
     if (_animationControl.isAnimating || widget.resetTarget == null) {
       return;
     }
-    if (_animationControl.value / 5 == 0) {
+    var value = _animationControl.value;
+    if (value == 1 || value == 0 || tOffset * 10 % 5 == Offset.zero) {
       return;
     }
     // 更接近 0 0.25 0.5 0.75 1
-    double target = widget.resetTarget!.calculate(_animationControl.value);
+    double target = widget.resetTarget!.calculate(value);
 
     widget.reset?.reset(
       (curve) {

@@ -10,7 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    
+
+  winloading: any
   cached_network_image: any
 
 dev_dependencies:
