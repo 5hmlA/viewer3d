@@ -17,7 +17,6 @@ Center(
 Center(
   child: View3D.autoReset(200,200,60),
 )
-
 ```
 #### customization
 
@@ -34,5 +33,28 @@ const View3D(
     this.reset = const ResetNormal(),
 })
 
+```
+
+# menulayout
+
+```dart
+MenuLayoutj(
+    home: _buildHome,
+    menu: _buildMenu,
+)
+```
+
+## customization
+```dart
+  const MenuLayoutj({
+    required this.home,
+    required this.menu,
+    this.offsetPercent = .6,
+    this.dragable = false,
+    this.duration = 300,
+    this.deform = const CubeDeform(),
+    this.critical = .7,
+    Key? key,
+  })
 ```
 

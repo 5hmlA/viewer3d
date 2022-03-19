@@ -14,7 +14,7 @@ import 'animation_reset.dart';
 const String avatar = "https://gitee.com/jonasj/yun/raw/master/9412501.png";
 final String qrcode = Random().nextBool()
     ? "https://gitee.com/jonasj/yun/raw/master/bdd_qrcode.png"
-    : "https://gitee.com/jonasj/yun/raw/master/kognfu_qrcode.gif";
+    : "https://img1.imgtp.com/2022/03/19/wSLc56NB.gif";
 
 class View3D extends StatefulWidget {
   final double width;

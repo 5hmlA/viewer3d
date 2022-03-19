@@ -49,12 +49,50 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // CupertinoIcons.view_3d
     return Scaffold(
-      appBar: AppBar(title: Text("Viewer3D"),),
-      body: Center(
-        child: View3D.me(),
+      appBar: AppBar(
+        title: Text("Viewer3D"),
+      ),
+      body: MenuLayoutj(
+        home: _buildHome,
+        menu: _buildMenu,
       ),
     );
   }
 
-}
+  Widget _buildHome(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(28.0),
+          child: Container(
+            width: double.infinity,
+            height: 200,
+            color: Colors.transparent,
+            child: Center(
+                child: TextButton(
+              onPressed: () {
+                MenuLayoutj.toggle(context);
+              },
+              child: Text("menu"),
+            )),
+          ),
+        ),
+        ClipRect(child: Align(widthFactor: 1, child: View3D.me())),
+      ],
+    );
+  }
 
+  Widget _buildMenu(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        MenuLayoutj.toggle(context);
+      },
+      child: ColoredBox(
+        color: Colors.red,
+        child: SizedBox.expand(
+          child: FlutterLogo(),
+        ),
+      ),
+    );
+  }
+}
