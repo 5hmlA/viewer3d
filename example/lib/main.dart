@@ -77,7 +77,7 @@ class MyHomePage extends StatelessWidget {
             )),
           ),
         ),
-        ClipRect(child: Align(widthFactor: 1, child: View3D.me())),
+        View3D.me(),
       ],
     );
   }

@@ -1,6 +1,6 @@
 name: viewer3d
 description: A flutter library for 3d.
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/ZuYun/viewer3d
 
 environment:

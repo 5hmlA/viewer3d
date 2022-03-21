@@ -23,6 +23,7 @@ class View3D extends StatefulWidget {
   final Color backgroundColor;
   final ResetTarget? resetTarget;
   final Reset? reset;
+  final bool center;
 
   //front,back,left,right,top,bottom,
   final List<Widget?>? sides;
@@ -33,29 +34,34 @@ class View3D extends StatefulWidget {
     this.thickness, {
     Key? key,
     this.sides,
+    this.center = true,
     this.backgroundColor = Colors.transparent,
     this.resetTarget,
     this.reset = const ResetNormal(),
   }) : super(key: key);
 
-  View3D.autoReset(
+  const View3D.autoReset(
     double width,
     double height,
     double thickness, {
     Key? key,
+    bool center = false,
     List<Widget?>? sides,
     Color backgroundColor = Colors.transparent,
   }) : this(width, height, thickness,
             key: key,
+            center: center,
             sides: sides,
             backgroundColor: backgroundColor,
             reset: const ResetElasticOut(),
             resetTarget: const ResetTarget2());
 
   View3D.me({
+    Key? key,
     double width = 260,
     double height = 260,
     double thickness = 60,
+    bool center = false,
   }) : this(
           width,
           height,
@@ -66,7 +72,7 @@ class View3D extends StatefulWidget {
                 child: CachedNetworkImage(
                   imageUrl: avatar,
                   progressIndicatorBuilder: (c, u, p) => const Center(
-                    child: const WinLoading(),
+                    child: WinLoading(),
                   ),
                 )),
             ColoredBox(
@@ -74,7 +80,7 @@ class View3D extends StatefulWidget {
                 child: CachedNetworkImage(
                   imageUrl: qrcode,
                   progressIndicatorBuilder: (c, u, p) => const Center(
-                    child: const WinLoading(),
+                    child: WinLoading(),
                   ),
                 )),
             ColoredBox(
@@ -82,7 +88,7 @@ class View3D extends StatefulWidget {
               child: const Center(
                 child: SizedBox(
                     width: 6,
-                    child: const Text(
+                    child: Text(
                       "WORK@OPPO",
                       textAlign: TextAlign.center,
                     )),
@@ -114,6 +120,8 @@ class View3D extends StatefulWidget {
           ],
           reset: const ResetElasticOut(),
           resetTarget: const ResetTarget2(),
+          center: center,
+          key: key,
         );
 
   @override
@@ -175,6 +183,7 @@ class _View3DState extends State<View3D> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
+
     Widget child = ColoredBox(
       color: widget.backgroundColor,
       child: AnimatedBuilder(
@@ -187,10 +196,8 @@ class _View3DState extends State<View3D> with SingleTickerProviderStateMixin {
                 ..setEntry(3, 2, -0.001)
                 ..rotateY(tOffset.dx * 2 * pi)
                 ..rotateX(-tOffset.dy * 2 * pi),
-              child: Center(
-                child: Tetrahedron(sides[0], sides[1], sides[2], sides[3],
-                    sides[4], sides[5], tOffset),
-              ),
+              child: _buildTetrahedron(),
+              // child: child,
             );
           }),
     );
@@ -234,6 +241,22 @@ class _View3DState extends State<View3D> with SingleTickerProviderStateMixin {
     //   print("$tOffset  ${event.x}");
     // });
     return child;
+  }
+
+  _buildTetrahedron() {
+    var tetrahedron = Tetrahedron(
+      sides[0],
+      sides[1],
+      sides[2],
+      sides[3],
+      sides[4],
+      sides[5],
+      tOffset,
+    );
+    if (widget.center) {
+      return Center(child: tetrahedron);
+    }
+    return tetrahedron;
   }
 
   void _restore() {

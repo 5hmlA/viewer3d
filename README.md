@@ -9,6 +9,8 @@ https://user-images.githubusercontent.com/9412501/159005037-d84e412f-8bf2-4045-a
 
 ## how to use
 
+[![pub](https://img.shields.io/badge/pub-v0.0.3-green)](https://pub.dev/packages/viewer3d)
+
 ```dart
 Center(
   child: View3D.me(),
@@ -28,6 +30,7 @@ const View3D(
     this.thickness, {
     Key? key,
     this.sides,
+    this.center = true,
     this.backgroundColor = Colors.transparent,
     this.resetTarget,
     this.reset = const ResetNormal(),
